@@ -51,6 +51,10 @@ Se usa en el header, el footer, como favicon y como icono de app en iOS. Si se c
 logotipo, conviene regenerar `img/apple-touch-icon.png` a 180 × 180 px (fondo crema)
 y, si el nuevo archivo no trae transparencia, recortar el fondo para el header y el footer.
 
+La **paleta del sitio sale del propio logotipo**: granate `#8e2f26` (botones, acentos),
+crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08` (secciones oscuras y footer).
+Los colores están como variables en `:root` al principio de `css/styles.css`.
+
 > Ideal: pedir al diseñador el logotipo en vectorial (SVG/PDF/AI) para que se vea
 > perfecto en pantallas de alta densidad y en impresión.
 
