@@ -228,3 +228,19 @@ También puedes desplegar con la CLI:
 npm i -g vercel
 vercel --prod
 ```
+
+### Caché de CSS y JS
+
+`vercel.json` sirve `styles.css` y `main.js` con `max-age=0, must-revalidate`: el navegador
+pregunta al servidor y, si no ha cambiado, se queda con la copia local (un 304, barato). Antes
+se servían con 7 días de caché, y eso provocó un fallo real: tras cambiar el logo, quien tenía
+el CSS antiguo veía el HTML nuevo con reglas que no existían — el coche de la cabecera se
+quedaba en 0 × 0 (invisible) y el del pie salía enorme y en negro.
+
+Por eso el `<link>` lleva una versión (`css/styles.css?v=…`): si algún visitante tiene la copia
+vieja cacheada de la URL anterior, al cambiar la versión vuelve a descargarla. **Al tocar
+`styles.css` conviene subir ese `?v=`.**
+
+Y por eso el logo no depende del CSS para verse: los `<svg>` de la cabecera y el pie llevan
+`width`, `height` y `fill` como atributos. Si el CSS llega tarde o está cacheado, el coche se
+pinta igual (algo más grande, pero correcto).

@@ -83,8 +83,8 @@ img { max-width: 100%; display: block; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 1rem; }
 .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--ink); }
 .brand-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-.brand-car { width: 104px; height: auto; flex: none; fill: currentColor; }
-.brand-footer .brand-car { width: 132px; }
+.brand-car { width: 104px; height: auto; flex: none; }
+.brand-footer .brand-car { width: 120px; }
 .brand-footer .brand-text { font-size: 1.1rem; }
 .brand-text { font-weight: 600; letter-spacing: .06em; font-size: 1rem; white-space: nowrap; }
 .brand-text strong { font-weight: 900; }
@@ -285,8 +285,10 @@ img { max-width: 100%; display: block; }
   .footer-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .hero-content { padding: 4.5rem 1.25rem; }
   .brand-text { font-size: .85rem; }
+  .brand-footer .brand-text { font-size: .85rem; }
   .brand-car { width: 78px; }
-  .brand-footer .brand-car { width: 110px; }
+  .brand-footer { gap: .5rem; }
+  .brand-footer .brand-car { width: 96px; }
 }
 
 /* ---------- Accesibilidad: reducir movimiento ---------- */
