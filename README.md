@@ -51,9 +51,10 @@ TallerCostaBrava/
 │   ├── logo.png             (logotipo antiguo del cliente, ya sin uso)
 │   └── *.webp               (fotos del sitio)
 ├── marca/
-│   ├── foto-perfil-instagram*.png (foto de perfil 1080 × 1080)
+│   ├── foto-perfil-instagram.png  (foto de perfil 1080 × 1080)
+│   ├── destacado-*.png      (portadas de destacados 1080 × 1920)
 │   ├── como-se-ve-en-instagram.png(vista previa con recorte circular)
-│   └── build-avatar.mjs     (script que genera esas imágenes)
+│   └── build-redes.mjs      (script que genera todas esas imágenes)
 └── vercel.json              (configuración de despliegue)
 ```
 
@@ -116,32 +117,41 @@ oscuro `#63211b` (hover), crema `#f7f2e6` (fondos alternos) y negro cálido `#1f
 (secciones oscuras y footer). Están como variables en `:root` al principio de
 `css/styles.css`.
 
-## Foto de perfil de Instagram
+## Redes sociales (Instagram)
 
-En `marca/` están las tres propuestas, ya a **1080 × 1080** (el tamaño que pide Instagram), y
-una vista previa con el **recorte circular real** de la app a 150, 96, 48 y 32 px:
+Todo lo de redes se genera con el **mismo coche** del sitio (`img/logo-car.svg`) y la misma
+paleta, así que perfil, destacados y web van siempre a la una. Son PNG listos para subir:
 
-| Archivo | Qué es |
-|---|---|
-| `marca/foto-perfil-instagram.png` | **Opción recomendada**: coche grande + "TALLER COSTA BRAVA", aro granate |
-| `marca/foto-perfil-instagram-b.png` | La insignia del sitio + nombre |
-| `marca/foto-perfil-instagram-c.png` | Como el cartel de la fachada, con la banda roja de servicios |
-| `marca/como-se-ve-en-instagram.png` | Vista previa de las tres con recorte redondo |
+| Archivo | Formato | Para qué |
+|---|---|---|
+| `marca/foto-perfil-instagram.png` | 1080 × 1080 | Foto de perfil: **el coche solo, sin texto** |
+| `marca/destacado-horario.png` | 1080 × 1920 | Portada del destacado «Horario» (reloj) |
+| `marca/destacado-servicios.png` | 1080 × 1920 | Portada de «Servicios» (llave) |
+| `marca/destacado-opiniones.png` | 1080 × 1920 | Portada de «Opiniones» (estrella) |
+| `marca/destacado-contacto.png` | 1080 × 1920 | Portada de «Contacto» (teléfono) |
+| `marca/como-se-ve-en-instagram.png` | — | Vista previa con el recorte circular real |
 
-Se sube tal cual desde el móvil o el ordenador (Instagram la recorta en círculo y la reduce
-a 320 px). La opción A es la que mejor aguanta ese recorte: el coche sigue leyéndose y el
-nombre no se convierte en una mancha.
+**La foto de perfil va sin texto a propósito.** Instagram la muestra a 40 px en los
+comentarios: el nombre se convierte en una mancha y ensucia el coche. El nombre ya lo dice
+el usuario de la cuenta y la biografía, y en la web lo escribe el HTML.
 
-El script lee el trazado directamente de `img/logo-car.svg`, así que si cambia el coche de la
-marca basta con volver a ejecutarlo (y los iconos de `img/` se regeneran rasterizando
-`img/logo-mark.svg`, que sale del mismo dibujo):
+**Los destacados sí llevan una palabra**, porque ahí el recorte es de ~140 px y se lee. La
+composición está pensada para el recorte circular: todo el contenido vive dentro del círculo
+central de la imagen de 1080 × 1920 (Instagram recorta el cuadrado central), con el aro
+granate a la vista.
+
+Para regenerarlo todo después de tocar el logo:
 
 ```bash
 npm i puppeteer-core @sparticuz/chromium
-node marca/build-avatar.mjs
+node marca/build-redes.mjs
 # o, con un Chrome ya instalado:
-CHROME_PATH=/usr/bin/google-chrome node marca/build-avatar.mjs
+CHROME_PATH=/usr/bin/google-chrome node marca/build-redes.mjs
 ```
+
+El script lee el trazado de `img/logo-car.svg`, así que cambiando el coche del sitio se
+actualizan perfil y destacados a la vez. Para añadir otro destacado basta con una línea más
+en la lista `DESTACADOS` (icono + texto).
 
 ## Accesibilidad y buenas prácticas
 
