@@ -82,8 +82,10 @@ img { max-width: 100%; display: block; }
 .site-header.scrolled { border-color: var(--line); box-shadow: 0 6px 20px rgba(0,0,0,.06); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 1rem; }
 .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--ink); }
-.brand-logo { width: 52px; height: 52px; flex: none; }
-.brand-logo-full { width: 140px; height: 140px; flex: none; border-radius: 14px; }
+.brand-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.brand-car { width: 104px; height: auto; flex: none; fill: currentColor; }
+.brand-footer .brand-car { width: 132px; }
+.brand-footer .brand-text { font-size: 1.1rem; }
 .brand-text { font-weight: 600; letter-spacing: .06em; font-size: 1rem; white-space: nowrap; }
 .brand-text strong { font-weight: 900; }
 .nav { display: flex; align-items: center; gap: 1.6rem; }
@@ -283,7 +285,8 @@ img { max-width: 100%; display: block; }
   .footer-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .hero-content { padding: 4.5rem 1.25rem; }
   .brand-text { font-size: .85rem; }
-  .brand-logo { width: 46px; height: 46px; }
+  .brand-car { width: 78px; }
+  .brand-footer .brand-car { width: 110px; }
 }
 
 /* ---------- Accesibilidad: reducir movimiento ---------- */
