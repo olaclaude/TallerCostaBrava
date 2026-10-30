@@ -27,6 +27,8 @@ taller mecánico de Sant Feliu de Guíxols (Girona).
   que se desactivan con `prefers-reduced-motion` y nunca dejan contenido oculto.
 - SEO local: meta tags, Open Graph, `manifest` instalable y datos estructurados
   `schema.org/AutoRepair`.
+- Identidad: emblema vectorial propio (el coche del cartel) y foto de perfil de Instagram
+  generada desde el mismo dibujo, para que web y redes se vean igual.
 - Formulario de cita sin backend: abre WhatsApp con el mensaje pre-rellenado,
   con validación accesible en línea (sin `alert()`).
 - Cabeceras de seguridad y de caché definidas en `vercel.json` (CSP, `nosniff`,
@@ -40,32 +42,47 @@ TallerCostaBrava/
 ├── css/styles.css
 ├── js/main.js
 ├── img/
-│   ├── logo-mark.svg        (emblema vectorial: header y favicon)
-│   ├── logo.png             (logotipo completo: footer a 140 px)
+│   ├── logo-mark.svg        (emblema vectorial: header, footer y favicon)
+│   ├── icon-192.png         (icono de app, generado desde el emblema)
+│   ├── icon-512.png         (icono de app)
+│   ├── icon-maskable-512.png(icono de app con zona segura de Android)
 │   ├── apple-touch-icon.png (icono para iOS, generado desde el emblema)
+│   ├── logo.png             (logotipo antiguo del cliente, ya sin uso)
 │   └── *.webp               (fotos del sitio)
+├── marca/
+│   ├── foto-perfil-instagram*.png (foto de perfil 1080 × 1080)
+│   ├── como-se-ve-en-instagram.png(vista previa con recorte circular)
+│   └── build-avatar.mjs     (script que genera esas imágenes)
 └── vercel.json              (configuración de despliegue)
 ```
 
 ## Marca
 
-El logotipo tiene **dos versiones**, según el tamaño al que se use:
+La marca sale del **cartel de la fachada del taller**: el coche de perfil y el nombre
+"TALLER COSTA BRAVA". El emblema del sitio es una recreación vectorial de ese coche.
 
 | Archivo | Qué es | Dónde se usa |
 |---|---|---|
-| `img/logo-mark.svg` | Emblema vectorial: dos pistones cruzados, **sin texto** | Header, favicon, icono de app |
-| `img/logo.png` | Logotipo completo original (insignia con "TALLER" y "COSTA BRAVA") | Footer, a **140 px** |
+| `img/logo-mark.svg` | Emblema vectorial: coche de perfil dentro de la insignia granate, **sin texto** | Header (52 px), footer (72 px), favicon, iconos de app |
+| `img/icon-192.png` · `img/icon-512.png` · `img/icon-maskable-512.png` | 192 / 512 / 512 px, generados desde el emblema | PWA y pantalla de inicio (Android) |
 | `img/apple-touch-icon.png` | 180 × 180 px, generado desde el emblema | iOS (guardar en inicio) |
+| `img/logo.png` | Logotipo antiguo que aportó el cliente | **Sin uso**: se conserva solo como archivo histórico |
 
-**Por qué dos versiones:** la tipografía curva de la insignia es ilegible por debajo de
-~120 px, así que a tamaño de cabecera (52 px) se usa el emblema sin texto y el nombre lo
-escribe el HTML, siempre nítido. El logotipo completo aparece a 140 px en el footer, que es
-donde se lee bien.
+**Por qué un emblema sin texto:** la tipografía de la insignia original es ilegible por
+debajo de ~120 px, así que a tamaño de cabecera (52 px) se usa el símbolo y el nombre lo
+escribe el HTML, siempre nítido. Antes el emblema eran dos pistones cruzados; ahora es el
+coche del cartel, que es lo que la gente asocia al taller cuando pasa por delante.
 
-El emblema es una **recreación vectorial** del original (mismos colores y motivo: pistones
-cruzados), pensada para verse limpia a cualquier tamaño y con un peso de ~1 KB. Si en el
-futuro se consigue el logo completo en vectorial (SVG/AI/PDF) del diseñador, basta con
-sustituir `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`.
+**Cómo está dibujado** (`viewBox="0 0 64 64"`, ~1 KB):
+
+- Carrocería en **crema `#fff7e6`** sobre insignia granate `#3e0e05` con aro `#83322c`.
+- Las ventanillas, el pilar B y las ruedas van **recortados** en el color de la insignia,
+  así que el coche se lee igual a 512 px que a 32 px, sin líneas finas que se pierdan.
+- Sin degradados ni sombras: se ve idéntico en pantalla, en un icono de app y en impresión.
+
+> Si algún día llega el logo en vectorial del diseñador, basta con sustituir
+> `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`; los PNG de `img/` se
+> regeneran rasterizando ese mismo SVG (con `sharp`, o con cualquier exportador de SVG).
 
 ### Iconos
 
@@ -93,6 +110,31 @@ plantilla, para que ninguno destaque por color, estilo o grosor:
 oscuro `#63211b` (hover), crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08`
 (secciones oscuras y footer). Están como variables en `:root` al principio de
 `css/styles.css`.
+
+## Foto de perfil de Instagram
+
+En `marca/` están las tres propuestas, ya a **1080 × 1080** (el tamaño que pide Instagram), y
+una vista previa con el **recorte circular real** de la app a 150, 96, 48 y 32 px:
+
+| Archivo | Qué es |
+|---|---|
+| `marca/foto-perfil-instagram.png` | **Opción recomendada**: coche grande + "TALLER COSTA BRAVA", aro granate |
+| `marca/foto-perfil-instagram-b.png` | La insignia del sitio + nombre |
+| `marca/foto-perfil-instagram-c.png` | Como el cartel de la fachada, con la banda roja de servicios |
+| `marca/como-se-ve-en-instagram.png` | Vista previa de las tres con recorte redondo |
+
+Se sube tal cual desde el móvil o el ordenador (Instagram la recorta en círculo y la reduce
+a 320 px). La opción A es la que mejor aguanta ese recorte: el coche sigue leyéndose y el
+nombre no se convierte en una mancha.
+
+Para regenerarlas tras cambiar el coche del emblema:
+
+```bash
+npm i puppeteer-core @sparticuz/chromium
+node marca/build-avatar.mjs
+# o, con un Chrome ya instalado:
+CHROME_PATH=/usr/bin/google-chrome node marca/build-avatar.mjs
+```
 
 ## Accesibilidad y buenas prácticas
 
@@ -132,7 +174,9 @@ Comprobado con navegador real (Chromium) en escritorio (1440 px) y móvil (390 p
    1920 × 1080; las de la galería, idealmente 1200 px de ancho.
 3. **Textos legales**: faltan *Aviso legal*, *Política de privacidad* y, si se
    activa analítica, *Cookies*.
-4. **Logo vectorial** del diseñador (SVG/AI/PDF) para sustituir los PNG.
+4. **Logo del diseñador**: el emblema actual es una recreación vectorial del coche del
+   cartel. Si el diseñador entrega el original (SVG/AI/PDF), se sustituye `img/logo-mark.svg`
+   sin tocar nada más.
 
 ## Uso local
 
