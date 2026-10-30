@@ -211,13 +211,28 @@
         id: "telefono",
         test: function (v) { return /^[+0-9][0-9\s().-]{6,}$/.test(v); },
         message: "Necesitamos un teléfono válido (mínimo 7 dígitos)."
-      },
-      {
-        id: "servicio",
-        test: function (v) { return v !== ""; },
-        message: "Elige el servicio que necesitas."
       }
     ];
+
+    /* Servicio: grupo de opciones (chips). Se valida aparte del resto de campos. */
+    var servicioBox = document.getElementById("error-servicio");
+    var servicioRadios = form.querySelectorAll('input[name="servicio"]');
+    var servicioValue = function () {
+      var picked = form.querySelector('input[name="servicio"]:checked');
+      return picked ? picked.value : "";
+    };
+    var setServicioError = function (message) {
+      if (servicioBox) servicioBox.textContent = message || "";
+      Array.prototype.forEach.call(servicioRadios, function (radio) {
+        if (message) radio.setAttribute("aria-invalid", "true");
+        else radio.removeAttribute("aria-invalid");
+      });
+    };
+    Array.prototype.forEach.call(servicioRadios, function (radio) {
+      radio.addEventListener("change", function () {
+        if (radio.getAttribute("aria-invalid") === "true") setServicioError("");
+      });
+    });
 
     // Al corregir un campo, se limpia su error
     Array.prototype.forEach.call(checks, function (check) {
@@ -241,6 +256,10 @@
         if (!ok && !firstInvalid) firstInvalid = el;
       });
 
+      var servicioOk = servicioValue() !== "";
+      setServicioError(servicioOk ? "" : "Elige el servicio que necesitas.");
+      if (!servicioOk && !firstInvalid && servicioRadios.length) firstInvalid = servicioRadios[0];
+
       if (firstInvalid) {
         if (status) status.textContent = "Revisa los campos marcados antes de enviar.";
         firstInvalid.focus();
@@ -249,7 +268,7 @@
 
       var nombre = get("nombre").value.trim();
       var telefono = get("telefono").value.trim();
-      var servicio = get("servicio").value;
+      var servicio = servicioValue();
       var fechaVal = fecha ? fecha.value : "";
       if (fechaVal && !validateDate()) {
         if (status) status.textContent = "La fecha elegida es domingo y el taller está cerrado. Selecciona otro día.";
@@ -309,5 +328,20 @@
       mapBox.textContent = "";
       mapBox.appendChild(iframe);
     });
+  }
+
+  /* ----- El botón flotante de WhatsApp no debe tapar el formulario ----- */
+  var fab = document.querySelector(".whatsapp-float");
+  var cita = document.getElementById("cita");
+  if (fab && cita && "IntersectionObserver" in window) {
+    var fabObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var overlapping = entry.isIntersecting;
+        fab.classList.toggle("is-hidden", overlapping);
+        fab.setAttribute("aria-hidden", overlapping ? "true" : "false");
+        fab.tabIndex = overlapping ? -1 : 0;
+      });
+    }, { threshold: 0 });
+    fabObserver.observe(cita);
   }
 })();

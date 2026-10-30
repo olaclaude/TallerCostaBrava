@@ -5,7 +5,7 @@ taller mecánico de Sant Feliu de Guíxols (Girona).
 
 ## Datos del negocio
 
-- **Dirección:** Calle Girona 125-127, 17200 Sant Feliu de Guíxols, Girona
+- **Dirección:** Calle Girona 125-127, 17220 Sant Feliu de Guíxols, Girona
 - **Teléfonos:** +34 673 21 04 78 · 972 32 83 82
 - **Instagram:** [@taller__costa___brava](https://www.instagram.com/taller__costa___brava/)
 - **Horario:** L-V 09:00-13:00 / 15:00-19:00 · S 09:00-13:00 · D cerrado
@@ -31,6 +31,10 @@ taller mecánico de Sant Feliu de Guíxols (Girona).
   generada desde el mismo dibujo, para que web y redes se vean igual.
 - Formulario de cita sin backend: abre WhatsApp con el mensaje pre-rellenado,
   con validación accesible en línea (sin `alert()`).
+- Móvil cuidado: el servicio se elige con botones táctiles de 48 px (no desplegable),
+  los campos van a 16 px para que iOS no haga zoom al enfocar, la galería se desliza
+  con `scroll-snap` y el botón flotante de WhatsApp se aparta cuando el formulario
+  está en pantalla, para no tapar el de envío.
 - Cabeceras de seguridad y de caché definidas en `vercel.json` (CSP, `nosniff`,
   `Referrer-Policy`, `Permissions-Policy`, HSTS).
 

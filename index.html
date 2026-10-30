@@ -28,7 +28,7 @@
 
   <!-- La foto del hero es el elemento LCP: se precarga -->
   <link rel="preload" href="img/hero.webp" as="image" fetchpriority="high" />
-  <link rel="stylesheet" href="css/styles.css?v=20261030-3" />
+  <link rel="stylesheet" href="css/styles.css?v=20261030-4" />
   <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
   <script type="application/ld+json">
   {
@@ -46,11 +46,11 @@
       "@type": "PostalAddress",
       "streetAddress": "Calle Girona 125-127",
       "addressLocality": "Sant Feliu de Guíxols",
-      "postalCode": "17200",
+      "postalCode": "17220",
       "addressRegion": "Girona",
       "addressCountry": "ES"
     },
-    "hasMap": "https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17200+Sant+Feliu+de+Gu%C3%ADxols,+Girona",
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17220+Sant+Feliu+de+Gu%C3%ADxols,+Girona",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -203,7 +203,7 @@
   <section class="section section-dark" id="taller">
     <div class="wrap about-grid">
       <div class="about-media reveal">
-        <img src="img/hero.webp" alt="Interior del Taller Costa Brava en Sant Feliu de Guíxols" width="640" height="357" loading="lazy" decoding="async" />
+        <img src="img/fachada.webp" alt="Fachada del Taller Costa Brava en la Calle Girona, con el rótulo del taller" width="1200" height="750" loading="lazy" decoding="async" />
       </div>
       <div class="about-text">
         <p class="kicker">El taller</p>
@@ -265,17 +265,16 @@
             <p class="field-error" id="error-telefono"></p>
           </div>
           <div class="form-row">
-            <label for="servicio">Servicio <span class="req">*</span></label>
-            <select id="servicio" name="servicio" required aria-describedby="error-servicio">
-              <option value="">Elige un servicio…</option>
-              <option>Mecánica general</option>
-              <option>Neumáticos</option>
-              <option>Reprogramaciones</option>
-              <option>Diagnosis</option>
-              <option>Pre-ITV</option>
-              <option>ITV</option>
-              <option>Otro / no lo sé</option>
-            </select>
+            <fieldset class="chips" aria-describedby="error-servicio">
+              <legend>Servicio <span class="req">*</span></legend>
+              <label class="chip"><input type="radio" name="servicio" value="Mecánica general" /><span>Mecánica</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="Neumáticos" /><span>Neumáticos</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="Reprogramaciones" /><span>Reprogramación</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="Diagnosis" /><span>Diagnosis</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="Pre-ITV" /><span>Pre-ITV</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="ITV" /><span>ITV</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="Otro / no lo sé" /><span>Otro</span></label>
+            </fieldset>
             <p class="field-error" id="error-servicio"></p>
           </div>
           <div class="form-row">
@@ -304,8 +303,8 @@
         </div>
         <div class="side-card">
           <h3>Dónde estamos</h3>
-          <p>Calle Girona 125-127<br />17200 Sant Feliu de Guíxols<br />Girona</p>
-          <a class="btn btn-ghost btn-block" href="https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17200+Sant+Feliu+de+Gu%C3%ADxols,+Girona" target="_blank" rel="noopener">Abrir en Google Maps</a>
+          <p>Calle Girona 125-127<br />17220 Sant Feliu de Guíxols<br />Girona</p>
+          <a class="btn btn-ghost btn-block" href="https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17220+Sant+Feliu+de+Gu%C3%ADxols,+Girona" target="_blank" rel="noopener">Abrir en Google Maps</a>
         </div>
       </aside>
     </div>
@@ -320,22 +319,22 @@
         <table class="hours-table">
           <caption class="visually-hidden">Horario de apertura del taller</caption>
           <tbody>
-            <tr><th scope="row">Lunes a viernes</th><td>09:00 – 13:00 · 15:00 – 19:00</td></tr>
-            <tr><th scope="row">Sábado</th><td>09:00 – 13:00</td></tr>
+            <tr><th scope="row">Lunes a viernes</th><td class="hours"><span class="shift">09:00 – 13:00</span><span class="shift-sep"> · </span><span class="shift">15:00 – 19:00</span></td></tr>
+            <tr><th scope="row">Sábado</th><td class="hours"><span class="shift">09:00 – 13:00</span></td></tr>
             <tr><th scope="row">Domingo</th><td class="closed">Cerrado</td></tr>
           </tbody>
         </table>
         <p class="open-now" id="open-now" aria-live="polite"></p>
       </div>
       <div class="map-box reveal" id="map-box"
-           data-map-src="https://www.google.com/maps?q=Calle%20Girona%20125%2C%2017200%20Sant%20Feliu%20de%20Gu%C3%ADxols%2C%20Girona&output=embed">
+           data-map-src="https://www.google.com/maps?q=Calle%20Girona%20125%2C%2017220%20Sant%20Feliu%20de%20Gu%C3%ADxols%2C%20Girona&output=embed">
         <div class="map-consent">
           <p><strong>Mapa de Google</strong><br />Si lo cargas, Google puede instalar cookies y registrar tu IP.</p>
           <button type="button" class="btn btn-primary" id="map-load">
             <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
             Ver el mapa
           </button>
-          <a class="map-consent-link" href="https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17200+Sant+Feliu+de+Gu%C3%ADxols,+Girona" target="_blank" rel="noopener">O abrirlo en Google Maps</a>
+          <a class="map-consent-link" href="https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17220+Sant+Feliu+de+Gu%C3%ADxols,+Girona" target="_blank" rel="noopener">O abrirlo en Google Maps</a>
         </div>
       </div>
     </div>
@@ -361,7 +360,7 @@
       </div>
       <div>
         <h4>Dirección</h4>
-        <p>Calle Girona 125-127<br />17200 Sant Feliu de Guíxols<br />Girona, España</p>
+        <p>Calle Girona 125-127<br />17220 Sant Feliu de Guíxols<br />Girona, España</p>
       </div>
       <div>
         <h4>Síguenos</h4>
