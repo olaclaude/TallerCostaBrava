@@ -28,7 +28,7 @@
 
   <!-- La foto del hero es el elemento LCP: se precarga -->
   <link rel="preload" href="img/hero.webp" as="image" fetchpriority="high" />
-  <link rel="stylesheet" href="css/styles.css?v=20261030-mobile1" />
+  <link rel="stylesheet" href="css/styles.css?v=20261030-mobile2" />
   <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
   <script type="application/ld+json">
   {
@@ -273,6 +273,8 @@
           <div class="form-row">
             <label for="fecha">Fecha preferida</label>
             <input type="date" id="fecha" name="fecha" />
+            <p class="field-error" id="error-fecha" aria-live="polite"></p>
+            <small class="form-note">El taller permanece cerrado los domingos. Selecciona otro día.</small>
           </div>
           <div class="form-row">
             <label for="mensaje">Cuéntanos qué le pasa a tu coche</label>
