@@ -440,3 +440,18 @@ img { max-width: 100%; display: block; }
 @media (hover: none) and (pointer: coarse) {
   .card:hover { transform: none; box-shadow: none; }
 }
+
+
+/* Contacto simplificado: una acción principal por zona */
+.hero-actions .btn { min-width: 190px; }
+.cita-side { align-self: start; }
+.side-card-location { margin-top: .25rem; }
+.footer-grid h4 { margin-bottom: .65rem; }
+@media (max-width: 700px) {
+  .hero-actions { margin-top: 1.25rem; }
+  .hero-actions .btn { width: auto; min-width: 170px; }
+  .cita-grid { gap: 1.1rem; }
+  .cita-side { margin-top: 0; }
+  .side-card-location { padding: 1rem; }
+  .footer-grid { row-gap: 1.1rem; }
+}
