@@ -22,10 +22,15 @@ taller mecánico de Sant Feliu de Guíxols (Girona).
 
 ## Características técnicas
 
-- 100 % estática: sin build, sin frameworks, sin dependencias.
-- Responsive (móvil primero), animaciones ligeras con `IntersectionObserver`.
-- SEO local: meta tags, Open Graph y datos estructurados `schema.org/AutoRepair`.
-- Formulario de cita sin backend: abre WhatsApp con el mensaje pre-rellenado.
+- 100 % estática: sin build, sin frameworks, sin dependencias (~100 KB en total).
+- Responsive (móvil primero), animaciones ligeras con `IntersectionObserver`
+  que se desactivan con `prefers-reduced-motion` y nunca dejan contenido oculto.
+- SEO local: meta tags, Open Graph, `manifest` instalable y datos estructurados
+  `schema.org/AutoRepair`.
+- Formulario de cita sin backend: abre WhatsApp con el mensaje pre-rellenado,
+  con validación accesible en línea (sin `alert()`).
+- Cabeceras de seguridad y de caché definidas en `vercel.json` (CSP, `nosniff`,
+  `Referrer-Policy`, `Permissions-Policy`, HSTS).
 
 ## Estructura
 
@@ -34,9 +39,100 @@ TallerCostaBrava/
 ├── index.html
 ├── css/styles.css
 ├── js/main.js
-├── img/            (fotos del sitio)
-└── vercel.json     (configuración de despliegue)
+├── img/
+│   ├── logo-mark.svg        (emblema vectorial: header y favicon)
+│   ├── logo.png             (logotipo completo: footer a 140 px)
+│   ├── apple-touch-icon.png (icono para iOS, generado desde el emblema)
+│   └── *.webp               (fotos del sitio)
+└── vercel.json              (configuración de despliegue)
 ```
+
+## Marca
+
+El logotipo tiene **dos versiones**, según el tamaño al que se use:
+
+| Archivo | Qué es | Dónde se usa |
+|---|---|---|
+| `img/logo-mark.svg` | Emblema vectorial: dos pistones cruzados, **sin texto** | Header, favicon, icono de app |
+| `img/logo.png` | Logotipo completo original (insignia con "TALLER" y "COSTA BRAVA") | Footer, a **140 px** |
+| `img/apple-touch-icon.png` | 180 × 180 px, generado desde el emblema | iOS (guardar en inicio) |
+
+**Por qué dos versiones:** la tipografía curva de la insignia es ilegible por debajo de
+~120 px, así que a tamaño de cabecera (52 px) se usa el emblema sin texto y el nombre lo
+escribe el HTML, siempre nítido. El logotipo completo aparece a 140 px en el footer, que es
+donde se lee bien.
+
+El emblema es una **recreación vectorial** del original (mismos colores y motivo: pistones
+cruzados), pensada para verse limpia a cualquier tamaño y con un peso de ~1 KB. Si en el
+futuro se consigue el logo completo en vectorial (SVG/AI/PDF) del diseñador, basta con
+sustituir `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`.
+
+### Iconos
+
+Los seis iconos de "Servicios del taller" son un set homogéneo y **todos** siguen la misma
+plantilla, para que ninguno destaque por color, estilo o grosor:
+
+```html
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">…</svg>
+```
+
+- **Estilo de línea** (nunca relleno) y grosor de trazo 2 en todos, sobre geometría de 24 px.
+- **Color heredado** con `currentColor`: el icono toma el granate del contenedor
+  `.card-icon`. No se pone `fill` ni `stroke` con valor fijo en ningún icono.
+- `aria-hidden="true"`: el significado lo da el `<h3>` de la tarjeta, así que el icono es decorativo.
+- Símbolos distintos entre sí: llave inglesa (mecánica), rueda (neumáticos), chip
+  (reprogramaciones), monitor con señal (diagnosis), lista de comprobación (pre-ITV) y sello
+  con check (ITV).
+
+> Si se añade o cambia un icono, hay que copiar el `<svg>` completo de arriba. Un `<path>`
+> suelto sin `fill="none"` se pinta **negro sólido** por defecto y rompe el conjunto: fue
+> justo el fallo que se corrigió aquí.
+
+**Paleta del sitio**, tomada del logotipo: granate `#8e2f26` (botones, acentos), granate
+oscuro `#63211b` (hover), crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08`
+(secciones oscuras y footer). Están como variables en `:root` al principio de
+`css/styles.css`.
+
+## Accesibilidad y buenas prácticas
+
+Comprobado con navegador real (Chromium) en escritorio (1440 px) y móvil (390 px):
+
+- **Estructura:** `<main>` único, jerarquía de encabezados correcta, enlace
+  "Saltar al contenido", `lang="es"`.
+- **Foco:** `:focus-visible` visible en todos los controles, con color adaptado
+  sobre fondos oscuros.
+- **Formulario:** etiquetas asociadas, `autocomplete`, `inputmode`,
+  errores en línea con `aria-invalid` + `aria-describedby`, foco automático en el
+  primer campo erróneo y mensajes anunciados por lectores (`role="status"`).
+- **Imágenes:** todas con `alt`, `width`/`height` (sin saltos de layout) y `lazy`
+  salvo la del hero, que se precarga.
+- **Movimiento:** respeta `prefers-reduced-motion`; el contenido se ve aunque
+  JavaScript falle (hay `noscript` y una red de seguridad en el script).
+- **Contraste:** todos los pares texto/fondo usados superan WCAG AA (4,5:1);
+  la mayoría superan AAA.
+- **Menú móvil:** `aria-expanded`/`aria-label` sincronizados, se cierra con
+  `Esc` y al pulsar fuera.
+
+## Privacidad
+
+- El **mapa de Google no se carga por defecto**: el iframe se inyecta solo cuando
+  el visitante pulsa "Ver el mapa". Así no se instalan cookies de terceros ni se
+  envía la IP a Google sin consentimiento. Siempre hay un enlace directo a Maps.
+- El formulario **no envía datos a ningún servidor**: compone el mensaje y lo abre
+  en WhatsApp, que es un servicio externo cuya privacidad aplica la propia app.
+
+## Antes de publicar (pendientes)
+
+1. **Dominio definitivo**: al tenerlo, poner las URLs absolutas de `og:image` y
+   añadir `<link rel="canonical">` (hay un `TODO` en el `<head>`), además de la
+   línea `Sitemap:` en `robots.txt`.
+2. **Fotos en alta resolución**: `hero.webp` es de 640 × 357 px y en pantallas
+   grandes se ve algo blanda (es la imagen LCP). Conviene una versión de
+   1920 × 1080; las de la galería, idealmente 1200 px de ancho.
+3. **Textos legales**: faltan *Aviso legal*, *Política de privacidad* y, si se
+   activa analítica, *Cookies*.
+4. **Logo vectorial** del diseñador (SVG/AI/PDF) para sustituir los PNG.
 
 ## Uso local
 

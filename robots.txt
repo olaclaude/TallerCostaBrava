@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: cuando el dominio definitivo esté activo, añadir aquí la línea:
+# Sitemap: https://TU-DOMINIO/sitemap.xml
