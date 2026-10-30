@@ -23,36 +23,23 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 
 const CREAM = '#fff7e6', BADGE = '#3e0e05', RED = '#8e2f26', RING = '#83322c';
 
-// Misma geometría que img/logo-mark.svg (viewBox 64 × 64)
-const BODY = 'M6.6 38.2C6.6 36 7 34.6 7.6 33.4C8.4 32 9.4 31.2 10.8 30.4C14.4 29.6 18.3 28.7 21.5 26.1L26.9 21.6C29.6 20.4 33.8 20.3 36.6 20.6L45 27.4C50.2 29 54 29.2 56.2 30.6C58 31.7 58.6 34.4 57.5 38.2Z';
-const GLASS = 'M24.3 26.2L28 22.9C30.4 22.2 33.8 22.2 36 22.6L41.4 26.2Z';
+// El coche es el mismo trazado vectorial que usa el sitio (img/logo-car.svg),
+// así que la foto de perfil y la web nunca se pueden desincronizar.
+const carFile = fs.readFileSync(path.join(here, '..', 'img', 'logo-car.svg'), 'utf8');
+const CAR_D = carFile.match(/<path[^>]*\sd="([^"]+)"/)[1];
+const CAR_BOX = '0 0 919 312';
 
-const carSvg = (id) => `
-<svg viewBox="5 19 54 25" xmlns="http://www.w3.org/2000/svg">
-  <defs><mask id="holes-${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-    <rect width="64" height="64" fill="#fff"/>
-    <path d="${GLASS}" fill="#000"/>
-    <circle cx="21.8" cy="38.2" r="5.5" fill="#000"/>
-    <circle cx="47.2" cy="38.2" r="5.5" fill="#000"/>
-  </mask></defs>
-  <path fill="${CREAM}" mask="url(#holes-${id})" d="${BODY}"/>
-  <rect x="32.5" y="22.3" width="1.4" height="3.9" fill="${CREAM}"/>
+const carSvg = () => `
+<svg viewBox="${CAR_BOX}" xmlns="http://www.w3.org/2000/svg">
+  <path fill="${CREAM}" fill-rule="evenodd" d="${CAR_D}"/>
 </svg>`;
 
-const badgeSvg = (id) => `
+const badgeSvg = () => `
 <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
   <rect x="1.6" y="1.6" width="60.8" height="60.8" rx="15" fill="${BADGE}"/>
   <rect x="2.6" y="2.6" width="58.8" height="58.8" rx="14.4" fill="none" stroke="${RING}" stroke-width="2"/>
-  <rect x="5.6" y="5.6" width="52.8" height="52.8" rx="11.5" fill="none" stroke="${CREAM}" stroke-opacity=".3" stroke-width="1"/>
-  <g transform="translate(32 32) scale(.97) translate(-32 -32)">
-    <defs><mask id="bh-${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-      <rect width="64" height="64" fill="#fff"/>
-      <path d="${GLASS}" fill="#000"/>
-      <circle cx="21.8" cy="38.2" r="5.5" fill="#000"/>
-      <circle cx="47.2" cy="38.2" r="5.5" fill="#000"/>
-    </mask></defs>
-    <path fill="${CREAM}" mask="url(#bh-${id})" d="${BODY}"/>
-    <rect x="32.5" y="22.3" width="1.4" height="3.9" fill="${CREAM}"/>
+  <g transform="translate(5 22.83) scale(.058762)">
+    <path fill="${CREAM}" fill-rule="evenodd" d="${CAR_D}"/>
   </g>
 </svg>`;
 
@@ -74,21 +61,21 @@ const base = `
 const variants = {
   'foto-perfil-instagram': { // A: coche grande + nombre
     html: `<div class="ring"></div><div class="ring2"></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:64px;margin-top:-6px">
-        <div style="width:680px">${carSvg('a')}</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:76px;margin-top:6px">
+        <div style="width:760px">${carSvg()}</div>
         <div class="word">Taller <b>Costa Brava</b></div>
       </div>`
   },
   'foto-perfil-instagram-b': { // B: el emblema del sitio + nombre
     html: `<div class="ring"></div><div class="ring2"></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:56px;margin-top:-6px">
-        <div style="width:400px">${badgeSvg('b')}</div>
+        <div style="width:380px">${badgeSvg()}</div>
         <div class="word">Taller <b>Costa Brava</b></div>
       </div>`
   },
   'foto-perfil-instagram-c': { // C: como el cartel de la fachada
     html: `<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding-bottom:290px">
-        <div style="width:600px">${carSvg('c')}</div>
+        <div style="width:700px">${carSvg()}</div>
         <div class="word" style="font-size:40px">Taller <b>Costa Brava</b></div>
       </div>
       <div class="band"><div class="word" style="font-size:30px;letter-spacing:.22em">Mecànica · Pneumàtics · Reprog.</div></div>`

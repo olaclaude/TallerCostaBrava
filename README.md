@@ -42,7 +42,8 @@ TallerCostaBrava/
 ├── css/styles.css
 ├── js/main.js
 ├── img/
-│   ├── logo-mark.svg        (emblema vectorial: header, footer y favicon)
+│   ├── logo-car.svg         (el coche de la marca, vectorial)
+│   ├── logo-mark.svg        (el coche en la insignia: favicon e iconos)
 │   ├── icon-192.png         (icono de app, generado desde el emblema)
 │   ├── icon-512.png         (icono de app)
 │   ├── icon-maskable-512.png(icono de app con zona segura de Android)
@@ -58,31 +59,35 @@ TallerCostaBrava/
 
 ## Marca
 
-La marca sale del **cartel de la fachada del taller**: el coche de perfil y el nombre
-"TALLER COSTA BRAVA". El emblema del sitio es una recreación vectorial de ese coche.
+La marca es **el coche del cartel de la fachada del taller**. Partimos de la foto del rótulo
+que aportó el cliente y el dibujo se ha **trazado a vectorial** (un único `path` con
+`fill-rule="evenodd"`), así que ya no es una recreación aproximada sino el mismo trazo del
+cartel, nítido a cualquier tamaño.
 
 | Archivo | Qué es | Dónde se usa |
 |---|---|---|
-| `img/logo-mark.svg` | Emblema vectorial: coche de perfil dentro de la insignia granate, **sin texto** | Header (52 px), footer (72 px), favicon, iconos de app |
-| `img/icon-192.png` · `img/icon-512.png` · `img/icon-maskable-512.png` | 192 / 512 / 512 px, generados desde el emblema | PWA y pantalla de inicio (Android) |
-| `img/apple-touch-icon.png` | 180 × 180 px, generado desde el emblema | iOS (guardar en inicio) |
+| `img/logo-car.svg` | El coche solo, `fill="currentColor"` (hereda el color del texto) | Cabecera (104 px de ancho) y pie (132 px) |
+| `img/logo-mark.svg` | El coche dentro de la insignia granate | Favicon y generación de los iconos de app |
+| `img/icon-192.png` · `img/icon-512.png` · `img/icon-maskable-512.png` | 192 / 512 / 512 px | PWA y pantalla de inicio (Android) |
+| `img/apple-touch-icon.png` | 180 × 180 px | iOS (guardar en inicio) |
 | `img/logo.png` | Logotipo antiguo que aportó el cliente | **Sin uso**: se conserva solo como archivo histórico |
 
-**Por qué un emblema sin texto:** la tipografía de la insignia original es ilegible por
-debajo de ~120 px, así que a tamaño de cabecera (52 px) se usa el símbolo y el nombre lo
-escribe el HTML, siempre nítido. Antes el emblema eran dos pistones cruzados; ahora es el
-coche del cartel, que es lo que la gente asocia al taller cuando pasa por delante.
+**Cómo se monta en la web:** el `path` se define **una sola vez** en un `<symbol id="marca-coche">`
+al principio del `<body>` y la cabecera y el pie lo pintan con `<use href="#marca-coche">`. Así
+el HTML no repite los ~5 KB del trazado, el color lo pone el CSS (`fill: currentColor`, tinta en
+la cabecera y crema en el pie) y si algún día cambia el dibujo se cambia en un único sitio.
 
-**Cómo está dibujado** (`viewBox="0 0 64 64"`, ~1 KB):
+**Por qué el nombre va en HTML:** la tipografía del coche es un trazo, no un texto; el nombre
+"TALLER COSTA BRAVA" se escribe con la tipografía del sistema, siempre nítido y seleccionable,
+y el coche queda como símbolo decorativo (`aria-hidden="true"`), con el nombre accesible en
+`aria-label` del enlace.
 
-- Carrocería en **crema `#fff7e6`** sobre insignia granate `#3e0e05` con aro `#83322c`.
-- Las ventanillas, el pilar B y las ruedas van **recortados** en el color de la insignia,
-  así que el coche se lee igual a 512 px que a 32 px, sin líneas finas que se pierdan.
-- Sin degradados ni sombras: se ve idéntico en pantalla, en un icono de app y en impresión.
+**Proporciones:** el dibujo es apaisado (919 × 312, casi 3:1). Por eso en la cabecera se usa a
+104 px de ancho (35 px de alto) y en el pie a 132 px; en la insignia cuadrada del favicon va
+centrado con aire arriba y abajo, que es lo que permite el formato cuadrado.
 
-> Si algún día llega el logo en vectorial del diseñador, basta con sustituir
-> `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`; los PNG de `img/` se
-> regeneran rasterizando ese mismo SVG (con `sharp`, o con cualquier exportador de SVG).
+> Si el diseñador entrega el original (SVG/AI/PDF), basta con sustituir el `path` de
+> `img/logo-car.svg` y volver a generar los PNG de `img/` y las fotos de `marca/`.
 
 ### Iconos
 
@@ -127,7 +132,9 @@ Se sube tal cual desde el móvil o el ordenador (Instagram la recorta en círcul
 a 320 px). La opción A es la que mejor aguanta ese recorte: el coche sigue leyéndose y el
 nombre no se convierte en una mancha.
 
-Para regenerarlas tras cambiar el coche del emblema:
+El script lee el trazado directamente de `img/logo-car.svg`, así que si cambia el coche de la
+marca basta con volver a ejecutarlo (y los iconos de `img/` se regeneran rasterizando
+`img/logo-mark.svg`, que sale del mismo dibujo):
 
 ```bash
 npm i puppeteer-core @sparticuz/chromium
