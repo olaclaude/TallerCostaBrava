@@ -35,6 +35,25 @@ body {
 
 img { max-width: 100%; display: block; }
 
+/* Utilidades de accesibilidad */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 1rem; top: -70px; z-index: 100;
+  background: var(--ink-warm); color: #fff; font-weight: 700; text-decoration: none;
+  padding: .7rem 1.15rem; border-radius: 0 0 10px 10px; transition: top .15s ease;
+}
+.skip-link:focus { top: 0; }
+
+/* Foco visible y consistente en toda la web */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px;
+}
+.hero :focus-visible, .section-dark :focus-visible, .site-footer :focus-visible { outline-color: var(--red-soft); }
+.btn-primary:focus-visible { outline-color: var(--ink); }
+
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.25rem; }
 
 /* ---------- Botones ---------- */
@@ -145,8 +164,8 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Galería ---------- */
-.grid-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 2.6rem; }
-.grid-gallery figure { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; }
+.grid-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.6rem; }
+.grid-gallery figure { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 10; }
 .grid-gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .grid-gallery figure:hover img { transform: scale(1.06); }
 .grid-gallery figcaption {
@@ -167,6 +186,14 @@ img { max-width: 100%; display: block; }
   outline: none; border-color: var(--red); box-shadow: 0 0 0 4px rgba(var(--red-rgb), .14);
 }
 .form-note { font-size: .85rem; color: var(--ink-soft); }
+.req { color: var(--red); font-weight: 800; }
+.field-error { color: #a4261d; font-size: .85rem; font-weight: 700; margin-top: .3rem; }
+.field-error:empty { display: none; }
+.form-row input[aria-invalid="true"], .form-row select[aria-invalid="true"] {
+  border-color: #a4261d; box-shadow: 0 0 0 4px rgba(164, 38, 29, .12);
+}
+.form-status { font-size: .92rem; font-weight: 700; color: var(--red); }
+.form-status:empty { display: none; }
 .cita-side { display: grid; gap: 1.2rem; position: sticky; top: 96px; }
 .side-card {
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
@@ -184,14 +211,20 @@ img { max-width: 100%; display: block; }
 /* ---------- Horarios ---------- */
 .horarios-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center; }
 .hours-table { width: 100%; border-collapse: collapse; margin-top: 1.6rem; max-width: 460px; }
-.hours-table td { padding: .85rem .4rem; border-bottom: 1px solid var(--line); font-size: 1.02rem; }
-.hours-table td:first-child { font-weight: 700; }
+.hours-table th, .hours-table td { padding: .85rem .4rem; border-bottom: 1px solid var(--line); font-size: 1.02rem; text-align: left; }
+.hours-table th { font-weight: 700; }
 .hours-table .closed { color: var(--red); font-weight: 700; }
 .open-now { margin-top: 1.1rem; font-weight: 700; }
-.open-now.open { color: #178a4c; }
+.open-now.open { color: #147a43; } /* verde con contraste AA sobre blanco (5,4:1) */
 .open-now.closed { color: var(--red); }
 .map-box { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .map-box iframe { width: 100%; height: 380px; border: 0; display: block; }
+.map-consent {
+  height: 380px; display: grid; align-content: center; justify-items: center; gap: .9rem;
+  padding: 2rem 1.5rem; text-align: center; background: var(--bg-alt);
+}
+.map-consent p { color: var(--ink-soft); font-size: .95rem; max-width: 34ch; }
+.map-consent-link { color: var(--red); font-weight: 700; font-size: .9rem; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--ink-warm); color: rgba(255,255,255,.85); padding: 4rem 0 0; }
@@ -251,4 +284,12 @@ img { max-width: 100%; display: block; }
   .hero-content { padding: 4.5rem 1.25rem; }
   .brand-text { font-size: .85rem; }
   .brand-logo { width: 46px; height: 46px; }
+}
+
+/* ---------- Accesibilidad: reducir movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .whatsapp-float { animation: none; }
+  .card, .btn, .grid-gallery img, .burger span, .skip-link { transition: none; }
 }

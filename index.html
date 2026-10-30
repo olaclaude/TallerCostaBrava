@@ -4,22 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Taller Costa Brava | Taller mecánico en Sant Feliu de Guíxols</title>
-  <meta name="description" content="Taller mecánico multimarca en Sant Feliu de Guíxols (Costa Brava). Mecánica, neumáticos, reprogramaciones, diagnosis, pre-ITV e ITV. Pide cita por WhatsApp: 673 21 04 78." />
+  <meta name="description" content="Taller mecánico multimarca en Sant Feliu de Guíxols (Costa Brava): mecánica, neumáticos, reprogramaciones, diagnosis, pre-ITV e ITV. Cita: 673 21 04 78." />
   <meta name="theme-color" content="#8e2f26" />
-  <meta property="og:title" content="Taller Costa Brava — Sant Feliu de Guíxols" />
-  <meta property="og:description" content="Mecánica, neumáticos, reprogramaciones, diagnosis y pre-ITV en la Costa Brava." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- Open Graph / redes sociales -->
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="Taller Costa Brava" />
+  <meta property="og:title" content="Taller Costa Brava — Taller mecánico en Sant Feliu de Guíxols" />
+  <meta property="og:description" content="Mecánica, neumáticos, reprogramaciones, diagnosis y pre-ITV en la Costa Brava. Pide cita por WhatsApp." />
   <meta property="og:image" content="img/hero.webp" />
+  <meta property="og:image:width" content="640" />
+  <meta property="og:image:height" content="357" />
+  <meta property="og:image:alt" content="Interior del Taller Costa Brava en Sant Feliu de Guíxols" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- TODO: al publicar con dominio propio, poner URLs absolutas en og:image y añadir
+       <link rel="canonical" href="https://TU-DOMINIO/"> -->
+
   <link rel="icon" href="img/logo-mark.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- La foto del hero es el elemento LCP: se precarga -->
+  <link rel="preload" href="img/hero.webp" as="image" fetchpriority="high" />
   <link rel="stylesheet" href="css/styles.css" />
+  <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
+    "@id": "#taller-costa-brava",
     "name": "Taller Costa Brava",
+    "description": "Taller mecánico multimarca en Sant Feliu de Guíxols: mecánica general, neumáticos, reprogramaciones, diagnosis, pre-ITV e ITV.",
     "image": "img/hero.webp",
     "telephone": "+34 673 21 04 78",
+    "priceRange": "€€",
+    "currenciesAccepted": "EUR",
+    "areaServed": "Sant Feliu de Guíxols y Costa Brava",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Calle Girona 125-127",
@@ -28,6 +50,7 @@
       "addressRegion": "Girona",
       "addressCountry": "ES"
     },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17200+Sant+Feliu+de+Gu%C3%ADxols,+Girona",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -54,6 +77,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <!-- ======= HEADER ======= -->
   <header class="site-header" id="header">
     <div class="wrap header-inner">
@@ -74,11 +99,13 @@
         </a>
       </nav>
 
-      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+      <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
+
+  <main id="contenido" tabindex="-1">
 
   <!-- ======= HERO ======= -->
   <section class="hero" id="inicio">
@@ -99,7 +126,7 @@
         </a>
       </div>
       <ul class="hero-tags">
-        <li>Mecánica</li><li>Pneumàtics</li><li>Reprogramacions</li>
+        <li>Mecánica</li><li>Neumáticos</li><li>Reprogramaciones</li>
         <li>Diagnosis</li><li>Pre-ITV</li><li>ITV</li>
       </ul>
     </div>
@@ -168,7 +195,7 @@
   <section class="section section-dark" id="taller">
     <div class="wrap about-grid">
       <div class="about-media reveal">
-        <img src="img/hero.webp" alt="Interior del Taller Costa Brava en Sant Feliu de Guíxols" loading="lazy" />
+        <img src="img/hero.webp" alt="Interior del Taller Costa Brava en Sant Feliu de Guíxols" width="640" height="357" loading="lazy" decoding="async" />
       </div>
       <div class="about-text">
         <p class="kicker">El taller</p>
@@ -197,10 +224,10 @@
       <p class="section-lead">Algunos de los trabajos que hacemos cada semana.</p>
 
       <div class="grid-gallery">
-        <figure class="reveal"><img src="img/mecanica.webp" alt="Cambio de distribución de un motor" loading="lazy" /><figcaption>Distribuciones y motor</figcaption></figure>
-        <figure class="reveal"><img src="img/neumaticos.webp" alt="Neumático montado en llanta" loading="lazy" /><figcaption>Neumáticos</figcaption></figure>
-        <figure class="reveal"><img src="img/diagnosis.webp" alt="Equipo de diagnosis conectado al vehículo" loading="lazy" /><figcaption>Diagnosis electrónica</figcaption></figure>
-        <figure class="reveal"><img src="img/preitv.webp" alt="Vehículo en banco de pruebas pre-ITV" loading="lazy" /><figcaption>Pre-ITV</figcaption></figure>
+        <figure class="reveal"><img src="img/mecanica.webp" alt="Cambio de distribución de un motor" width="360" height="196" loading="lazy" decoding="async" /><figcaption>Distribuciones y motor</figcaption></figure>
+        <figure class="reveal"><img src="img/neumaticos.webp" alt="Neumático montado en llanta" width="360" height="196" loading="lazy" decoding="async" /><figcaption>Neumáticos</figcaption></figure>
+        <figure class="reveal"><img src="img/diagnosis.webp" alt="Equipo de diagnosis conectado al vehículo" width="360" height="196" loading="lazy" decoding="async" /><figcaption>Diagnosis electrónica</figcaption></figure>
+        <figure class="reveal"><img src="img/preitv.webp" alt="Vehículo en banco de pruebas pre-ITV" width="360" height="196" loading="lazy" decoding="async" /><figcaption>Pre-ITV</figcaption></figure>
         
       </div>
     </div>
@@ -214,27 +241,34 @@
         <h2 class="section-title">Pide cita en 1 minuto</h2>
         <p class="section-lead">Rellena el formulario y se abrirá WhatsApp con tu solicitud ya escrita. Nosotros confirmamos la hora.</p>
 
-        <form id="form-cita" novalidate>
+        <form id="form-cita" novalidate aria-describedby="form-note">
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
           <div class="form-row">
-            <label for="nombre">Nombre *</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            <label for="nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required
+                   aria-describedby="error-nombre" />
+            <p class="field-error" id="error-nombre"></p>
           </div>
           <div class="form-row">
-            <label for="telefono">Teléfono *</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 000 000" required />
+            <label for="telefono">Teléfono <span class="req">*</span></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600 000 000" inputmode="tel" autocomplete="tel" required
+                   aria-describedby="error-telefono" />
+            <p class="field-error" id="error-telefono"></p>
           </div>
           <div class="form-row">
-            <label for="servicio">Servicio *</label>
-            <select id="servicio" name="servicio" required>
+            <label for="servicio">Servicio <span class="req">*</span></label>
+            <select id="servicio" name="servicio" required aria-describedby="error-servicio">
               <option value="">Elige un servicio…</option>
               <option>Mecánica general</option>
               <option>Neumáticos</option>
-              <option>Reprogramación</option>
+              <option>Reprogramaciones</option>
               <option>Diagnosis</option>
               <option>Pre-ITV</option>
               <option>ITV</option>
               <option>Otro / no lo sé</option>
             </select>
+            <p class="field-error" id="error-servicio"></p>
           </div>
           <div class="form-row">
             <label for="fecha">Fecha preferida</label>
@@ -247,7 +281,7 @@
           <button type="submit" class="btn btn-primary btn-block">
             Enviar solicitud por WhatsApp
           </button>
-          <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje preparado. No guardamos tus datos en la web.</p>
+          <p class="form-note" id="form-note">Al enviar se abrirá WhatsApp con tu mensaje preparado. No guardamos tus datos en la web.</p>
         </form>
       </div>
 
@@ -274,22 +308,30 @@
         <p class="kicker">Cuándo encontrarnos</p>
         <h2 class="section-title">Horario de apertura</h2>
         <table class="hours-table">
+          <caption class="visually-hidden">Horario de apertura del taller</caption>
           <tbody>
-            <tr><td>Lunes a viernes</td><td>09:00 – 13:00 · 15:00 – 19:00</td></tr>
-            <tr><td>Sábado</td><td>09:00 – 13:00</td></tr>
-            <tr><td>Domingo</td><td class="closed">Cerrado</td></tr>
+            <tr><th scope="row">Lunes a viernes</th><td>09:00 – 13:00 · 15:00 – 19:00</td></tr>
+            <tr><th scope="row">Sábado</th><td>09:00 – 13:00</td></tr>
+            <tr><th scope="row">Domingo</th><td class="closed">Cerrado</td></tr>
           </tbody>
         </table>
         <p class="open-now" id="open-now" aria-live="polite"></p>
       </div>
-      <div class="map-box reveal">
-        <iframe
-          title="Mapa de ubicación de Taller Costa Brava"
-          src="https://www.google.com/maps?q=Calle%20Girona%20125%2C%2017200%20Sant%20Feliu%20de%20Gu%C3%ADxols%2C%20Girona&output=embed"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="map-box reveal" id="map-box"
+           data-map-src="https://www.google.com/maps?q=Calle%20Girona%20125%2C%2017200%20Sant%20Feliu%20de%20Gu%C3%ADxols%2C%20Girona&output=embed">
+        <div class="map-consent">
+          <p><strong>Mapa de Google</strong><br />Si lo cargas, Google puede instalar cookies y registrar tu IP.</p>
+          <button type="button" class="btn btn-primary" id="map-load">
+            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            Ver el mapa
+          </button>
+          <a class="map-consent-link" href="https://www.google.com/maps/search/?api=1&query=Calle+Girona+125,+17200+Sant+Feliu+de+Gu%C3%ADxols,+Girona" target="_blank" rel="noopener">O abrirlo en Google Maps</a>
+        </div>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ======= FOOTER ======= -->
   <footer class="site-footer" id="contacto">

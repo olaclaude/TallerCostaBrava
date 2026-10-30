@@ -1,0 +1,16 @@
+{
+  "name": "Taller Costa Brava",
+  "short_name": "Costa Brava",
+  "description": "Taller mecánico multimarca en Sant Feliu de Guíxols: mecánica, neumáticos, reprogramaciones, diagnosis, pre-ITV e ITV.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8e2f26",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
