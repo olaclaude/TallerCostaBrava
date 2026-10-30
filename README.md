@@ -67,6 +67,28 @@ cruzados), pensada para verse limpia a cualquier tamaño y con un peso de ~1 KB.
 futuro se consigue el logo completo en vectorial (SVG/AI/PDF) del diseñador, basta con
 sustituir `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`.
 
+### Iconos
+
+Los seis iconos de "Servicios del taller" son un set homogéneo y **todos** siguen la misma
+plantilla, para que ninguno destaque por color, estilo o grosor:
+
+```html
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">…</svg>
+```
+
+- **Estilo de línea** (nunca relleno) y grosor de trazo 2 en todos, sobre geometría de 24 px.
+- **Color heredado** con `currentColor`: el icono toma el granate del contenedor
+  `.card-icon`. No se pone `fill` ni `stroke` con valor fijo en ningún icono.
+- `aria-hidden="true"`: el significado lo da el `<h3>` de la tarjeta, así que el icono es decorativo.
+- Símbolos distintos entre sí: llave inglesa (mecánica), rueda (neumáticos), chip
+  (reprogramaciones), monitor con señal (diagnosis), lista de comprobación (pre-ITV) y sello
+  con check (ITV).
+
+> Si se añade o cambia un icono, hay que copiar el `<svg>` completo de arriba. Un `<path>`
+> suelto sin `fill="none"` se pinta **negro sólido** por defecto y rompe el conjunto: fue
+> justo el fallo que se corrigió aquí.
+
 **Paleta del sitio**, tomada del logotipo: granate `#8e2f26` (botones, acentos), granate
 oscuro `#63211b` (hover), crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08`
 (secciones oscuras y footer). Están como variables en `:root` al principio de
