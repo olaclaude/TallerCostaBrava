@@ -168,6 +168,28 @@
       }
     }
 
+    // El selector nativo no permite desactivar días concretos: validamos domingos al elegir y al enviar.
+    var isSunday = function (value) {
+      if (!value) return false;
+      var parts = value.split("-");
+      if (parts.length !== 3) return false;
+      return new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2])).getUTCDay() === 0;
+    };
+    var validateDate = function () {
+      if (!fecha) return true;
+      var errorFecha = get("error-fecha");
+      var sunday = isSunday(fecha.value);
+      if (sunday) {
+        fecha.setAttribute("aria-invalid", "true");
+        if (errorFecha) errorFecha.textContent = "Los domingos estamos cerrados. Elige de lunes a sábado.";
+        return false;
+      }
+      fecha.removeAttribute("aria-invalid");
+      if (errorFecha) errorFecha.textContent = "";
+      return true;
+    };
+    if (fecha) fecha.addEventListener("change", validateDate);
+
     var setError = function (input, message) {
       var box = get("error-" + input.id);
       if (message) {
@@ -229,6 +251,11 @@
       var telefono = get("telefono").value.trim();
       var servicio = get("servicio").value;
       var fechaVal = fecha ? fecha.value : "";
+      if (fechaVal && !validateDate()) {
+        if (status) status.textContent = "La fecha elegida es domingo y el taller está cerrado. Selecciona otro día.";
+        fecha.focus();
+        return;
+      }
       var mensaje = get("mensaje").value.trim();
 
       var lineas = [
