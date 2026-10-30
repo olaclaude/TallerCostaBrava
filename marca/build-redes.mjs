@@ -54,6 +54,14 @@ const base = `
     background:radial-gradient(circle at 50% 37%, rgba(255,247,230,.075), rgba(255,247,230,0) 62%), ${BADGE}}
   .ring{position:absolute;border-radius:50%}
   .word{text-transform:uppercase;white-space:nowrap;font-weight:700;line-height:1}
+  .fila{display:flex;justify-content:space-between;align-items:center;width:860px;
+        padding:56px 0;border-bottom:1px solid rgba(255,247,230,.16)}
+  .fila:last-child{border-bottom:0}
+  .fila-lab{font-size:40px;line-height:1.35;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+            color:rgba(255,247,230,.62);width:330px;flex:none}
+  .fila-hor{text-align:right;font-size:64px;font-weight:700;line-height:1.24;letter-spacing:.01em;white-space:nowrap}
+  .fila-hor span{display:block}
+  .cerrado{color:#d98b82;letter-spacing:.06em}
 `;
 
 // 1080 × 1080: el dibujo va solo, sin texto (a 40 px no se lee nada)
@@ -75,6 +83,34 @@ const destacadoHtml = (icon, label) => `
        font-size:84px;letter-spacing:.24em;text-indent:.24em">${label}</div>
 </div>`;
 
+// 1080 × 1920: la historia que va dentro del destacado, con el horario real
+const HORARIO = [
+  ['Lunes a viernes', ['09:00 – 13:00', '15:00 – 19:00'], false],
+  ['Sábado', ['09:00 – 13:00'], false],
+  ['Domingo', ['Cerrado'], true]
+];
+
+const filaHtml = ([label, horas, cerrado]) => `
+  <div class="fila">
+    <div class="fila-lab">${label}</div>
+    <div class="fila-hor">${horas.map((h) => `<span class="${cerrado ? 'cerrado' : ''}">${h}</span>`).join('')}</div>
+  </div>`;
+
+const storyHorarioHtml = `
+<div class="stage" style="width:1080px;height:1920px">
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%">
+    ${iconSvg('horario', 110)}
+    <div class="word" style="margin-top:34px;font-size:80px;letter-spacing:.3em;text-indent:.3em">Horario</div>
+    <div style="width:860px;height:1px;background:rgba(255,247,230,.28);margin:56px 0 8px"></div>
+    <div>${HORARIO.map(filaHtml).join('')}</div>
+    <div style="margin-top:78px;text-align:center;font-size:34px;line-height:1.65;
+                color:rgba(255,247,230,.62);letter-spacing:.03em">
+      Calle Girona 125-127 · Sant Feliu de Guíxols<br>
+      673 21 04 78 · 972 32 83 82
+    </div>
+  </div>
+</div>`;
+
 const DESTACADOS = [
   ['destacado-horario', 'horario', 'Horario'],
   ['destacado-servicios', 'servicios', 'Servicios'],
@@ -82,7 +118,7 @@ const DESTACADOS = [
   ['destacado-contacto', 'contacto', 'Contacto']
 ];
 
-const mockup = (perfil, destacados) => `<!doctype html><html><head><meta charset="utf-8"><style>
+const mockup = (perfil, destacados, historia) => `<!doctype html><html><head><meta charset="utf-8"><style>
  body{margin:0;background:#fff;font-family:system-ui,"DejaVu Sans",sans-serif;color:#1a1210;padding:34px 40px}
  h1{font-size:26px;margin:0 0 6px} h2{font-size:16px;margin:28px 0 10px;color:#8e2f26;letter-spacing:.06em;text-transform:uppercase}
  p.sub{margin:0 0 22px;color:#5b504c;font-size:15px}
@@ -101,6 +137,13 @@ const mockup = (perfil, destacados) => `<!doctype html><html><head><meta charset
   <img class="circ" src="${perfil}" width="96" height="96">
   <img class="circ" src="${perfil}" width="48" height="48">
   <img class="circ" src="${perfil}" width="32" height="32">
+</div>
+
+<h2>Historia del destacado</h2>
+<div style="display:flex;gap:24px;align-items:flex-start">
+  <img src="${historia}" width="240" style="border-radius:18px;display:block">
+  <p class="sub" style="max-width:420px;margin:0">Esta es la historia que se sube dentro del destacado «Horario».
+  Formato 1080 × 1920, con los márgenes de arriba y abajo libres para que no los tape la interfaz de Instagram.</p>
 </div>
 
 <h2>Destacados</h2>
@@ -143,8 +186,10 @@ for (const [file, icon, label] of DESTACADOS) {
   destacadosUris.push([label, uri]);
 }
 
-await page.setViewport({ width: 1000, height: 760, deviceScaleFactor: 2 });
-await page.setContent(mockup(perfilUri, destacadosUris), { waitUntil: 'load' });
+const storyUri = await shot(storyHorarioHtml, 1080, 1920, path.join(here, 'historia-horario.png'));
+
+await page.setViewport({ width: 1000, height: 1160, deviceScaleFactor: 2 });
+await page.setContent(mockup(perfilUri, destacadosUris, storyUri), { waitUntil: 'load' });
 await new Promise((r) => setTimeout(r, 200));
 await page.screenshot({ path: path.join(here, 'como-se-ve-en-instagram.png'), fullPage: true });
 console.log('ok como-se-ve-en-instagram.png');

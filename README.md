@@ -53,6 +53,7 @@ TallerCostaBrava/
 ├── marca/
 │   ├── foto-perfil-instagram.png  (foto de perfil 1080 × 1080)
 │   ├── destacado-*.png      (portadas de destacados 1080 × 1920)
+│   ├── historia-horario.png (historia con el horario, 1080 × 1920)
 │   ├── como-se-ve-en-instagram.png(vista previa con recorte circular)
 │   └── build-redes.mjs      (script que genera todas esas imágenes)
 └── vercel.json              (configuración de despliegue)
@@ -129,6 +130,7 @@ paleta, así que perfil, destacados y web van siempre a la una. Son PNG listos p
 | `marca/destacado-servicios.png` | 1080 × 1920 | Portada de «Servicios» (llave) |
 | `marca/destacado-opiniones.png` | 1080 × 1920 | Portada de «Opiniones» (estrella) |
 | `marca/destacado-contacto.png` | 1080 × 1920 | Portada de «Contacto» (teléfono) |
+| `marca/historia-horario.png` | 1080 × 1920 | **Historia con el horario real**, para subir dentro del destacado |
 | `marca/como-se-ve-en-instagram.png` | — | Vista previa con el recorte circular real |
 
 **La foto de perfil va sin texto a propósito.** Instagram la muestra a 40 px en los
@@ -139,6 +141,10 @@ el usuario de la cuenta y la biografía, y en la web lo escribe el HTML.
 composición está pensada para el recorte circular: todo el contenido vive dentro del círculo
 central de la imagen de 1080 × 1920 (Instagram recorta el cuadrado central), con el aro
 granate a la vista.
+
+La historia del horario sale del mismo array `HORARIO` del script: si cambian las horas, se
+toca ahí y se vuelve a lanzar. El texto está en castellano; para catalán basta con cambiar
+las etiquetas (`Lunes a viernes` → `De dilluns a divendres`, `Cerrado` → `Tancat`).
 
 Para regenerarlo todo después de tocar el logo:
 
