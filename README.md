@@ -34,9 +34,25 @@ TallerCostaBrava/
 ├── index.html
 ├── css/styles.css
 ├── js/main.js
-├── img/            (fotos del sitio)
-└── vercel.json     (configuración de despliegue)
+├── img/
+│   ├── logo.png             (logotipo / favicon)
+│   ├── apple-touch-icon.png (icono para iOS, generado desde logo.png)
+│   └── *.webp               (fotos del sitio)
+└── vercel.json              (configuración de despliegue)
 ```
+
+## Marca
+
+El logotipo es la insignia de **Taller Costa Brava** (pistones y bujías cruzados sobre
+fondo granate): `img/logo.png`, 150 × 150 px con las esquinas transparentes para que
+encaje tanto sobre fondo blanco (header) como oscuro (footer).
+
+Se usa en el header, el footer, como favicon y como icono de app en iOS. Si se cambia el
+logotipo, conviene regenerar `img/apple-touch-icon.png` a 180 × 180 px (fondo crema)
+y, si el nuevo archivo no trae transparencia, recortar el fondo para el header y el footer.
+
+> Ideal: pedir al diseñador el logotipo en vectorial (SVG/PDF/AI) para que se vea
+> perfecto en pantallas de alta densidad y en impresión.
 
 ## Uso local
 
