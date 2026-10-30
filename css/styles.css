@@ -455,3 +455,8 @@ img { max-width: 100%; display: block; }
   .side-card-location { padding: 1rem; }
   .footer-grid { row-gap: 1.1rem; }
 }
+
+
+/* El formulario de cita queda como bloque único; la dirección y el mapa
+   se muestran una sola vez en la sección de horarios. */
+.cita-grid { grid-template-columns: minmax(0, 760px); justify-content: center; }
