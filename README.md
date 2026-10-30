@@ -35,28 +35,37 @@ TallerCostaBrava/
 ├── css/styles.css
 ├── js/main.js
 ├── img/
-│   ├── logo.png             (logotipo / favicon)
-│   ├── apple-touch-icon.png (icono para iOS, generado desde logo.png)
+│   ├── logo-mark.svg        (emblema vectorial: header y favicon)
+│   ├── logo.png             (logotipo completo: footer a 140 px)
+│   ├── apple-touch-icon.png (icono para iOS, generado desde el emblema)
 │   └── *.webp               (fotos del sitio)
 └── vercel.json              (configuración de despliegue)
 ```
 
 ## Marca
 
-El logotipo es la insignia de **Taller Costa Brava** (pistones y bujías cruzados sobre
-fondo granate): `img/logo.png`, 150 × 150 px con las esquinas transparentes para que
-encaje tanto sobre fondo blanco (header) como oscuro (footer).
+El logotipo tiene **dos versiones**, según el tamaño al que se use:
 
-Se usa en el header, el footer, como favicon y como icono de app en iOS. Si se cambia el
-logotipo, conviene regenerar `img/apple-touch-icon.png` a 180 × 180 px (fondo crema)
-y, si el nuevo archivo no trae transparencia, recortar el fondo para el header y el footer.
+| Archivo | Qué es | Dónde se usa |
+|---|---|---|
+| `img/logo-mark.svg` | Emblema vectorial: dos pistones cruzados, **sin texto** | Header, favicon, icono de app |
+| `img/logo.png` | Logotipo completo original (insignia con "TALLER" y "COSTA BRAVA") | Footer, a **140 px** |
+| `img/apple-touch-icon.png` | 180 × 180 px, generado desde el emblema | iOS (guardar en inicio) |
 
-La **paleta del sitio sale del propio logotipo**: granate `#8e2f26` (botones, acentos),
-crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08` (secciones oscuras y footer).
-Los colores están como variables en `:root` al principio de `css/styles.css`.
+**Por qué dos versiones:** la tipografía curva de la insignia es ilegible por debajo de
+~120 px, así que a tamaño de cabecera (52 px) se usa el emblema sin texto y el nombre lo
+escribe el HTML, siempre nítido. El logotipo completo aparece a 140 px en el footer, que es
+donde se lee bien.
 
-> Ideal: pedir al diseñador el logotipo en vectorial (SVG/PDF/AI) para que se vea
-> perfecto en pantallas de alta densidad y en impresión.
+El emblema es una **recreación vectorial** del original (mismos colores y motivo: pistones
+cruzados), pensada para verse limpia a cualquier tamaño y con un peso de ~1 KB. Si en el
+futuro se consigue el logo completo en vectorial (SVG/AI/PDF) del diseñador, basta con
+sustituir `img/logo-mark.svg` manteniendo el mismo `viewBox="0 0 64 64"`.
+
+**Paleta del sitio**, tomada del logotipo: granate `#8e2f26` (botones, acentos), granate
+oscuro `#63211b` (hover), crema `#f7f2e6` (fondos alternos) y negro cálido `#1f0d08`
+(secciones oscuras y footer). Están como variables en `:root` al principio de
+`css/styles.css`.
 
 ## Uso local
 

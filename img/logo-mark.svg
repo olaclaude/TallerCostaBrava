@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="tcbMarkTitle">
+  <title id="tcbMarkTitle">Taller Costa Brava — emblema</title>
+  <!-- Versión vectorial del emblema de la marca: dos pistones cruzados.
+       Sin texto, para que se lea igual de bien a 16 px que a 400 px. -->
+  <rect x="1.6" y="1.6" width="60.8" height="60.8" rx="15" fill="#3e0e05"/>
+  <rect x="2.6" y="2.6" width="58.8" height="58.8" rx="14.4" fill="none" stroke="#83322c" stroke-width="2"/>
+  <rect x="5.6" y="5.6" width="52.8" height="52.8" rx="11.5" fill="none" stroke="#fff7e6" stroke-opacity=".30" stroke-width="1"/>
+
+  <!-- pistón trasero (tono más apagado para dar profundidad) -->
+  <g transform="rotate(-45 32 33.5) translate(32 33.5) scale(.88)">
+    <path d="M-6 -26 L6 -26 Q9.4 -26 9.4 -22.6 L9.4 -12 L6.8 -12 L6.8 -4 Q6.8 -2 4.8 -2 L-4.8 -2 Q-6.8 -2 -6.8 -4 L-6.8 -12 L-9.4 -12 L-9.4 -22.6 Q-9.4 -26 -6 -26 Z" fill="#cdb99a"/>
+    <path d="M-9.4 -21 L9.4 -21 M-9.4 -16 L9.4 -16" stroke="#2a0802" stroke-width="2"/>
+    <path d="M-2.7 -1.5 L2.7 -1.5 L2.7 10.5 Q2.7 13.5 0 13.5 Q-2.7 13.5 -2.7 10.5 Z" fill="#cdb99a"/>
+    <circle cx="0" cy="15" r="5.2" fill="#cdb99a"/>
+    <circle cx="0" cy="15" r="2.5" fill="#2a0802"/>
+  </g>
+
+  <!-- pistón delantero (con contorno para separarlo del trasero) -->
+  <g transform="rotate(45 32 33.5) translate(32 33.5) scale(.88)">
+    <path d="M-6 -26 L6 -26 Q9.4 -26 9.4 -22.6 L9.4 -12 L6.8 -12 L6.8 -4 Q6.8 -2 4.8 -2 L-4.8 -2 Q-6.8 -2 -6.8 -4 L-6.8 -12 L-9.4 -12 L-9.4 -22.6 Q-9.4 -26 -6 -26 Z" fill="#fff7e6" stroke="#3e0e05" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M-9.4 -21 L9.4 -21 M-9.4 -16 L9.4 -16" stroke="#2a0802" stroke-width="2"/>
+    <path d="M-2.7 -1.5 L2.7 -1.5 L2.7 10.5 Q2.7 13.5 0 13.5 Q-2.7 13.5 -2.7 10.5 Z" fill="#fff7e6"/>
+    <circle cx="0" cy="15" r="5.2" fill="#fff7e6"/>
+    <circle cx="0" cy="15" r="2.5" fill="#2a0802"/>
+  </g>
+</svg>
